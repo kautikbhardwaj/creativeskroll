@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Sanchita Bhatia | Creativeskroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --ink:#0C0C0C; --ink-2:#141410; --surface:#181612;
+      --cream:#F4EFE6; --cream-dim:#D0C7B5; --muted:#5A5449;
+      --gold:#C19A52; --gold-light:#E2BD7A; --gold-dim:rgba(193,154,82,.12);
+    }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--ink); color:var(--cream);
+      font-family:'DM Sans',sans-serif; font-weight:300;
+      overflow-x:hidden; cursor:none;
+    }
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.45;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    }
+
+    /* CURSOR */
+    #cd { position:fixed; top:0; left:0; z-index:9999; width:8px; height:8px;
+      background:var(--cream); border-radius:50%; transform:translate(-50%,-50%);
+      pointer-events:none; mix-blend-mode:difference; }
+    #cr { position:fixed; top:0; left:0; z-index:9998; width:36px; height:36px;
+      border:1px solid rgba(244,239,230,.38); border-radius:50%; transform:translate(-50%,-50%);
+      pointer-events:none; transition:width .3s,height .3s,border-color .3s; }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.8rem 5%;
+      transition:background .4s, padding .4s, border-color .4s;
+      border-bottom:1px solid transparent;
+    }
+    nav.scrolled {
+      background:rgba(12,12,12,.94); backdrop-filter:blur(14px);
+      padding:1.1rem 5%; border-bottom:1px solid rgba(193,154,82,.1);
+    }
+    .nav-logo { font-family:'Cormorant Garant',serif; font-size:1.4rem; font-weight:600;
+      color:var(--cream); text-decoration:none; letter-spacing:.02em; }
+    .nav-logo span { color:var(--gold); }
+    .nav-back {
+      display:flex; align-items:center; gap:.6rem;
+      color:var(--muted); text-decoration:none; font-size:.75rem;
+      letter-spacing:.1em; text-transform:uppercase; transition:color .3s;
+    }
+    .nav-back:hover { color:var(--gold); }
+    .nav-back svg { width:14px; height:14px; fill:currentColor; }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .85s,transform .85s; }
+    .reveal.visible { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
+    .d4{transition-delay:.4s} .d5{transition-delay:.5s}
+
+    /* ═══════════ HERO ═══════════ */
+    #about-hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      justify-content:flex-end; position:relative; overflow:hidden;
+      padding:0 5% 6rem;
+    }
+    .ah-bg {
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse at 70% 30%, rgba(193,154,82,.08) 0%, transparent 60%),
+                 linear-gradient(to bottom, var(--ink) 0%, var(--ink-2) 100%);
+    }
+    .ah-deco {
+      position:absolute; right:0; top:0; bottom:0; width:55%;
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    .ah-deco-img {
+      position:absolute; inset:0;
+      width:100%; height:100%; object-fit:cover;
+      object-position:center top;
+      filter:brightness(.92) saturate(.95);
+      pointer-events:none; -webkit-user-drag:none;
+    }
+    .ah-deco::before {
+      content:''; position:absolute; inset:0; z-index:1;
+      background:
+        linear-gradient(to right, var(--ink) 0%, rgba(12,12,12,.7) 18%, transparent 45%),
+        linear-gradient(to bottom, var(--ink) 0%, transparent 12%),
+        linear-gradient(to top, var(--ink) 0%, transparent 15%),
+        linear-gradient(to left, var(--ink) 0%, transparent 8%);
+    }
+    .ah-initial { display:none; }
+    @keyframes floatDrift { from{transform:translateY(-2%)} to{transform:translateY(2%)} }
+
+    .ah-content { position:relative; z-index:2; max-width:860px; }
+    .ah-eyebrow {
+      font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:1.8rem;
+      display:flex; align-items:center; gap:1rem;
+    }
+    .ah-eyebrow::before { content:''; width:2.5rem; height:1px; background:var(--gold); }
+    .ah-h1 {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(3.5rem,7vw,8rem); font-weight:300;
+      line-height:1.02; letter-spacing:-.025em; margin-bottom:2.5rem;
+    }
+    .ah-h1 em { font-style:italic; color:var(--gold-light); }
+    .ah-intro {
+      font-size:1.1rem; color:var(--cream-dim); line-height:1.9;
+      max-width:640px;
+    }
+    .ah-intro strong { color:var(--cream); font-weight:400; }
+
+    /* ═══════════ YEARS BANNER ═══════════ */
+    .years-banner {
+      background:var(--gold); padding:2.5rem 5%;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:1.5rem; position:relative; z-index:1;
+    }
+    .years-left { display:flex; align-items:baseline; gap:1.2rem; }
+    .years-num {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(4rem,8vw,7rem); font-weight:700;
+      color:var(--ink); line-height:1;
+    }
+    .years-label {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(1.2rem,2vw,1.8rem); color:rgba(12,12,12,.75); font-weight:300;
+    }
+    .years-right { max-width:480px; }
+    .years-copy {
+      font-size:1rem; color:rgba(12,12,12,.8); line-height:1.75;
+    }
+    .years-copy strong { color:var(--ink); font-weight:500; }
+
+    /* ═══════════ STORY ═══════════ */
+    #story { padding:9rem 5%; }
+    .story-grid { display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:start; }
+    .story-left {}
+    .story-section-tag { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:.9rem; display:flex; align-items:center; gap:1rem; }
+    .story-section-tag::before { content:''; width:2rem; height:1px; background:var(--gold); }
+    .story-h2 {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(2.4rem,4vw,4.2rem); font-weight:300; line-height:1.1;
+      letter-spacing:-.02em; margin-bottom:2.5rem;
+    }
+    .story-body { color:var(--muted); line-height:2; font-size:1rem; }
+    .story-body p { margin-bottom:1.5rem; }
+    .story-body p:last-child { margin-bottom:0; }
+    .story-body strong { color:var(--cream-dim); font-weight:400; }
+    .story-body em { color:var(--gold-light); font-style:italic; }
+
+    .story-right {}
+    .philosophy-card {
+      background:var(--surface); border:1px solid var(--gold-dim);
+      padding:3rem; position:relative; margin-bottom:2rem;
+    }
+    .philosophy-card::before {
+      content:''; position:absolute;
+      top:-1px; left:2.5rem; right:2.5rem; height:2px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    }
+    .philo-num {
+      font-family:'Cormorant Garant',serif; font-size:3.5rem;
+      color:rgba(193,154,82,.12); font-weight:700; line-height:1; margin-bottom:1rem;
+    }
+    .philo-title {
+      font-family:'Cormorant Garant',serif; font-size:1.3rem;
+      color:var(--cream); font-weight:400; margin-bottom:.8rem;
+    }
+    .philo-desc { font-size:.85rem; color:var(--muted); line-height:1.85; }
+
+    /* ═══════════ SKILLS ═══════════ */
+    #skills {
+      padding:8rem 5%; background:var(--surface);
+      border-top:1px solid var(--gold-dim);
+      border-bottom:1px solid var(--gold-dim);
+    }
+    .skills-header { margin-bottom:5rem; }
+    .skills-intro {
+      color:var(--muted); font-size:1rem; line-height:1.8;
+      max-width:540px; margin-top:1.5rem;
+    }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; }
+    .skill-cell {
+      padding:2.8rem 2.5rem; background:var(--ink-2);
+      border-right:1px solid var(--gold-dim);
+      transition:background .3s;
+    }
+    .skill-cell:hover { background:rgba(193,154,82,.04); }
+    .skill-cell:nth-child(3n) { border-right:none; }
+    .skill-icon {
+      width:42px; height:42px; background:var(--gold-dim);
+      border:1px solid rgba(193,154,82,.2);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.5rem;
+    }
+    .skill-icon svg { width:18px; height:18px; fill:var(--gold); }
+    .skill-name {
+      font-family:'Cormorant Garant',serif; font-size:1.2rem;
+      color:var(--cream); font-weight:400; margin-bottom:.6rem;
+    }
+    .skill-tools { font-size:.78rem; color:var(--muted); line-height:1.7; }
+    .skill-bar-wrap { margin-top:1rem; height:2px; background:rgba(255,255,255,.05); }
+    .skill-bar {
+      height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light));
+      transform:scaleX(0); transform-origin:left;
+      transition:transform 1.2s cubic-bezier(.25,.46,.45,.94);
+    }
+    .skill-cell.visible .skill-bar { transform:scaleX(1); }
+
+    /* ═══════════ NUMBERS ═══════════ */
+    #numbers { padding:8rem 5%; }
+    .numbers-header { text-align:center; margin-bottom:5rem; }
+    .numbers-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; }
+    .num-cell {
+      padding:3.5rem 2rem; text-align:center; background:var(--surface);
+      border-right:1px solid var(--gold-dim);
+      transition:background .3s;
+    }
+    .num-cell:last-child { border-right:none; }
+    .num-cell:hover { background:rgba(193,154,82,.05); }
+    .num-big {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(3rem,5vw,5.5rem); font-weight:300;
+      color:var(--gold); line-height:1; margin-bottom:.5rem;
+    }
+    .num-label {
+      font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+    }
+    .num-note { font-size:.8rem; color:var(--cream-dim); margin-top:.5rem; }
+
+    /* ═══════════ CTA ═══════════ */
+    #about-cta {
+      padding:9rem 5%; text-align:center;
+      background:var(--surface); border-top:1px solid var(--gold-dim);
+    }
+    .cta-h2 {
+      font-family:'Cormorant Garant',serif;
+      font-size:clamp(2.5rem,5vw,5.5rem); font-weight:300; line-height:1.1;
+      letter-spacing:-.02em; margin-bottom:1.5rem; max-width:700px; margin-inline:auto;
+    }
+    .cta-h2 em { font-style:italic; color:var(--gold-light); }
+    .cta-sub { color:var(--muted); font-size:1rem; line-height:1.8; max-width:420px; margin:0 auto 3rem; }
+    .cta-btns { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
+    .btn-wa {
+      display:inline-flex; align-items:center; gap:.8rem;
+      background:#25D366; color:#fff; padding:.95rem 2.3rem;
+      text-decoration:none; font-family:'DM Sans',sans-serif;
+      font-size:.84rem; font-weight:500; letter-spacing:.06em;
+      cursor:none; transition:background .3s,transform .2s;
+    }
+    .btn-wa:hover { background:#1EBE59; transform:translateY(-2px); }
+    .btn-wa svg { width:18px; height:18px; fill:currentColor; flex-shrink:0; }
+    .btn-work {
+      display:inline-flex; align-items:center; gap:.6rem;
+      border:1px solid rgba(193,154,82,.4); color:var(--cream-dim);
+      padding:.95rem 2.3rem; text-decoration:none;
+      font-family:'DM Sans',sans-serif; font-size:.84rem; letter-spacing:.06em;
+      cursor:none; transition:all .3s;
+    }
+    .btn-work:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* FOOTER */
+    footer {
+      border-top:1px solid var(--gold-dim); background:var(--ink-2);
+      padding:2.2rem 5%; display:flex; align-items:center;
+      justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    }
+    .footer-logo { font-family:'Cormorant Garant',serif; font-size:1.2rem; color:var(--cream-dim); }
+    .footer-copy { font-size:.68rem; color:var(--muted); letter-spacing:.05em; }
+    .footer-link { color:var(--muted); text-decoration:none; font-size:.7rem;
+      letter-spacing:.08em; text-transform:uppercase; transition:color .3s; }
+    .footer-link:hover { color:var(--gold); }
+
+    /* RESPONSIVE */
+    @media(max-width:1100px){
+      .story-grid { grid-template-columns:1fr; gap:4rem; }
+      .numbers-grid { grid-template-columns:repeat(2,1fr); }
+      .num-cell:nth-child(2) { border-right:none; }
+      .num-cell:nth-child(3) { border-top:1px solid var(--gold-dim); }
+    }
+    @media(max-width:700px){
+      .ah-deco { display:none; }
+      .skills-grid { grid-template-columns:1fr; }
+      .skill-cell { border-right:none; border-bottom:1px solid var(--gold-dim); }
+      .numbers-grid { grid-template-columns:1fr 1fr; }
+      .years-banner { flex-direction:column; }
+      footer { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cd"></div>
+<div id="cr"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">Creativeskroll<span>.</span></a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="about-hero">
+  <div class="ah-bg"></div>
+  <div class="ah-deco"><img src="assets/sanchita.png" alt="Sanchita Bhatia" class="ah-deco-img" draggable="false"/></div>
+  <div class="ah-content">
+    <div class="ah-eyebrow reveal">The story behind the work</div>
+    <h1 class="ah-h1 reveal d1">
+      I don't just<br/>design — I build<br/><em>visual languages.</em>
+    </h1>
+    <p class="ah-intro reveal d2">
+      Hi, I'm <strong>Sanchita Bhatia</strong> — a graphic designer from Jaipur with over
+      <strong>8 years of experience</strong> transforming brands into unforgettable visual identities.
+      My work sits at the intersection of strategy and aesthetics, where every pixel has a purpose
+      and every design decision serves the bigger story.
+    </p>
+  </div>
+</section>
+
+<!-- YEARS BANNER -->
+<div class="years-banner">
+  <div class="years-left">
+    <div class="years-num">8<span style="font-size:.5em;vertical-align:super;opacity:.7">+</span></div>
+    <div class="years-label">Years of Designing<br/>Experience</div>
+  </div>
+  <div class="years-right">
+    <p class="years-copy">
+      Eight years of solving visual problems, shaping brand narratives, and crafting designs that
+      <strong>perform as beautifully as they look</strong> — across branding, print, digital, and motion.
+    </p>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-grid">
+    <div class="story-left">
+      <div class="story-section-tag reveal">My Story</div>
+      <h2 class="story-h2 reveal d1">
+        Designed with<br/>heart. Built for<br/>impact.
+      </h2>
+      <div class="story-body reveal d2">
+        <p>
+          I started my journey as a designer with one question: <em>why do some brands make you feel something
+          the moment you see them?</em> That curiosity became an obsession, and that obsession became a career.
+        </p>
+        <p>
+          Over eight years, I've worked with <strong>startups, established businesses, and creative agencies</strong>
+          — helping them define who they are visually, and making sure the world sees exactly that.
+          From building brand identities from scratch to crafting high-converting ad campaigns, my work
+          has spanned industries and platforms.
+        </p>
+        <p>
+          What sets me apart isn't just technical skill — it's the ability to listen deeply, think
+          strategically, and <strong>translate a brand's essence into visuals that connect</strong>.
+          Design, for me, is never decorative. It is functional art that solves problems.
+        </p>
+        <p>
+          Based in <em>Jaipur, India</em> — a city rich in craft, culture, and visual heritage —
+          I carry that spirit of craftsmanship into every project I take on.
+        </p>
+      </div>
+    </div>
+    <div class="story-right">
+      <div class="philosophy-card reveal d1">
+        <div class="philo-num">01</div>
+        <div class="philo-title">Strategy First, Aesthetics Always</div>
+        <div class="philo-desc">Great design isn't about making things look pretty — it's about making them work. Every visual decision I make is rooted in purpose, audience, and brand intent.</div>
+      </div>
+      <div class="philosophy-card reveal d2">
+        <div class="philo-num">02</div>
+        <div class="philo-title">Consistency is the New Bold</div>
+        <div class="philo-desc">A brand that looks different every day is invisible. I build cohesive systems — visual languages that speak consistently across every touchpoint.</div>
+      </div>
+      <div class="philosophy-card reveal d3">
+        <div class="philo-num">03</div>
+        <div class="philo-title">Craft Matters in Every Pixel</div>
+        <div class="philo-desc">Details are not the details — they are the design. From kerning to color balance, my attention to craft is what separates good from extraordinary.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-header">
+    <div class="story-section-tag reveal">Expertise</div>
+    <h2 class="story-h2 reveal d1">
+      Tools of the trade.<br/>Mastered over time.
+    </h2>
+    <p class="skills-intro reveal d2">
+      A decade of hands-on work means deep fluency across design disciplines —
+      from brand strategy to motion, from print to pixel.
+    </p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell reveal">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 3c1.93 0 3.5 1.57 3.5 3.5S13.93 14 12 14s-3.5-1.57-3.5-3.5S10.07 7 12 7zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 17.18 9.64 16.5 12 16.5s4.53.68 6.24 1.69c.48.38.76.97.76 1.58V20z"/></svg></div>
+      <div class="skill-name">Brand Identity</div>
+      <div class="skill-tools">Logo Design · Visual Identity · Brand Guidelines · Typography Systems · Color Strategy</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
+    </div>
+    <div class="skill-cell reveal d1">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8 15c0-1.66 1.34-3 3-3 .35 0 .69.07 1 .18V6h5v2h-3v7.03c-.02 1.64-1.35 2.97-3 2.97-1.66 0-3-1.34-3-3z"/></svg></div>
+      <div class="skill-name">Social Media</div>
+      <div class="skill-tools">Instagram · LinkedIn · Meta Ads · Stories & Reels · Content Strategy</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+    </div>
+    <div class="skill-cell reveal d2">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+      <div class="skill-name">Print & Editorial</div>
+      <div class="skill-tools">Brochures · Magazines · Posters · Packaging · Menu Design</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+    </div>
+    <div class="skill-cell reveal">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/></svg></div>
+      <div class="skill-name">Motion & Video</div>
+      <div class="skill-tools">After Effects · Video Editing · Animated GIFs · YouTube Assets · LinkedIn Videos</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+    </div>
+    <div class="skill-cell reveal d1">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
+      <div class="skill-name">Adobe Suite</div>
+      <div class="skill-tools">Photoshop · Illustrator · InDesign · After Effects · Premiere Pro</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:96%"></div></div>
+    </div>
+    <div class="skill-cell reveal d2">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V18l7 4 7-4v-6.82L23 9 12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.86-5-2.86v-3.72L12 15l5-2.73v3.72z"/></svg></div>
+      <div class="skill-name">Packaging Design</div>
+      <div class="skill-tools">Product Packaging · Label Design · Box Design · Retail Branding</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section id="numbers">
+  <div class="numbers-header">
+    <div class="story-section-tag reveal" style="justify-content:center">By The Numbers</div>
+    <h2 class="story-h2 reveal d1" style="text-align:center">
+      Work that speaks<br/>for itself.
+    </h2>
+  </div>
+  <div class="numbers-grid">
+    <div class="num-cell reveal">
+      <div class="num-big">8+</div>
+      <div class="num-label">Years of Experience</div>
+      <div class="num-note">Across branding, print & digital</div>
+    </div>
+    <div class="num-cell reveal d1">
+      <div class="num-big">60+</div>
+      <div class="num-label">Projects Delivered</div>
+      <div class="num-note">For brands across industries</div>
+    </div>
+    <div class="num-cell reveal d2">
+      <div class="num-big">1.4K</div>
+      <div class="num-label">Behance Views</div>
+      <div class="num-note">Growing portfolio reach</div>
+    </div>
+    <div class="num-cell reveal d3">
+      <div class="num-big">3</div>
+      <div class="num-label">Design Studios</div>
+      <div class="num-note">Senior roles held</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="about-cta">
+  <div class="story-section-tag reveal" style="justify-content:center">Let's Work Together</div>
+  <h2 class="cta-h2 reveal d1">
+    Ready to make your<br/>brand <em>unforgettable?</em>
+  </h2>
+  <p class="cta-sub reveal d2">
+    I'm available for freelance and full-time opportunities.
+    Let's start a conversation about your brand.
+  </p>
+  <div class="cta-btns reveal d3">
+    <a href="https://wa.me/917891447123?text=Hi%20Sanchita%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project!" target="_blank" class="btn-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+    </a>
+    <a href="index.html#work" class="btn-work">View My Work →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Creativeskroll</div>
+  <span class="footer-copy">© 2025 Sanchita Bhatia · Jaipur, India</span>
+  <a href="index.html" class="footer-link">← Back to Portfolio</a>
+</footer>
+
+<script>
+// Cursor
+const cd = document.getElementById('cd'), cr = document.getElementById('cr');
+let rx=0,ry=0;
+document.addEventListener('mousemove', e => { cd.style.left=e.clientX+'px'; cd.style.top=e.clientY+'px'; });
+(function loop(){
+  rx += (parseFloat(cd.style.left||0)-rx)*.13;
+  ry += (parseFloat(cd.style.top||0)-ry)*.13;
+  cr.style.left=rx+'px'; cr.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+// Reveal observer
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      // trigger skill bars
+      if(e.target.classList.contains('skill-cell')) {
+        const bar = e.target.querySelector('.skill-bar');
+        if(bar) bar.style.transform = 'scaleX(1)';
+      }
+    }
+  });
+}, {threshold:.12});
+document.querySelectorAll('.reveal, .skill-cell').forEach(el => obs.observe(el));
+setTimeout(() => document.querySelectorAll('#about-hero .reveal').forEach(el => el.classList.add('visible')), 80);
+</script>
+</body>
+</html>

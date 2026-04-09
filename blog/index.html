@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Blog — Graphic Design Insights & Brand Strategy | Creativeskroll</title>
+  <meta name="description" content="Design insights, brand strategy, and practical guides from Sanchita Bhatia — graphic designer and brand identity expert based in Jaipur, India.">
+  <meta name="author" content="Sanchita Bhatia">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.creativeskroll.com/blog">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.creativeskroll.com/blog">
+  <meta property="og:title" content="Blog — Graphic Design Insights & Brand Strategy | Creativeskroll">
+  <meta property="og:description" content="Design insights, brand strategy, and practical guides from Sanchita Bhatia — graphic designer based in Jaipur, India.">
+  <meta property="og:image" content="https://www.creativeskroll.com/assets/sanchita.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Blog","name":"Creativeskroll Blog","description":"Graphic design insights and brand strategy from Sanchita Bhatia, Jaipur India","url":"https://www.creativeskroll.com/blog","author":{"@type":"Person","name":"Sanchita Bhatia","url":"https://www.creativeskroll.com/about.html"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--ink:#0C0C0C;--cream:#F4EFE6;--cream-dim:#D8CDB8;--gold:#C19A52;--gold-light:#E2BD7A;--muted:#5A5449;--surface:#141412;--border:rgba(193,154,82,.15)}
+    html{scroll-behavior:smooth}
+    body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+    #cd{position:fixed;top:0;left:0;z-index:9999;width:8px;height:8px;background:var(--cream);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:difference}
+    #cr{position:fixed;top:0;left:0;z-index:9998;width:36px;height:36px;border:1px solid rgba(244,239,230,.35);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:width .3s,height .3s,border-color .3s}
+    body.cursor-hover #cr{width:52px;height:52px;border-color:var(--gold)}
+    @media(hover:none),(pointer:coarse){#cd,#cr{display:none!important}body{cursor:auto!important}}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 5%;transition:background .4s,padding .4s;border-bottom:1px solid transparent}
+    nav.scrolled{background:rgba(12,12,12,.95);backdrop-filter:blur(14px);padding:1rem 5%;border-bottom:1px solid rgba(193,154,82,.12)}
+    .nav-logo{font-family:'Cormorant Garant',serif;font-size:1.4rem;font-weight:600;color:var(--cream);text-decoration:none;letter-spacing:.02em}
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+    .nav-links a{color:var(--cream-dim);text-decoration:none;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;transition:color .3s}
+    .nav-links a:hover{color:var(--cream)}
+    .nav-hire{background:var(--gold)!important;color:var(--ink)!important;padding:.5rem 1.4rem;font-weight:500!important}
+    @media(max-width:768px){.nav-links li:not(:last-child){display:none}nav{padding:1.2rem 4%}}
+    .blog-header{padding:9rem 5% 4rem;max-width:1100px;margin:0 auto;border-bottom:1px solid var(--border)}
+    .page-tag{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+    .page-tag::before{content:'';width:1.5rem;height:1px;background:var(--gold)}
+    .page-h1{font-family:'Cormorant Garant',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.06;letter-spacing:-.02em}
+    .page-h1 em{font-style:italic;color:var(--gold-light)}
+    .page-sub{color:var(--muted);font-size:.95rem;max-width:500px;line-height:1.8;margin-top:1rem}
+    .blog-grid-wrap{max-width:1100px;margin:0 auto;padding:4rem 5% 6rem}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+    .post-card{background:var(--ink);padding:2rem 1.8rem;text-decoration:none;display:block;transition:background .3s;border:none}
+    .post-card:hover{background:var(--surface)}
+    .post-card-cat{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+    .post-card-title{font-family:'Cormorant Garant',serif;font-size:1.3rem;font-weight:400;color:var(--cream);line-height:1.25;margin-bottom:.8rem}
+    .post-card:hover .post-card-title{color:var(--gold-light)}
+    .post-card-excerpt{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+    .post-card-meta{font-size:.68rem;letter-spacing:.06em;color:rgba(193,154,82,.5);text-transform:uppercase}
+    footer{border-top:1px solid var(--border);background:var(--surface);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-logo{font-family:'Cormorant Garant',serif;font-size:1.2rem;color:var(--cream-dim)}
+    .footer-copy{font-size:.68rem;color:var(--muted);letter-spacing:.05em}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:900px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.blog-grid{grid-template-columns:1fr}.blog-header,.blog-grid-wrap{padding-left:4%;padding-right:4%}}
+  </style>
+</head>
+<body>
+<div id="cd"></div><div id="cr"></div>
+<nav id="navbar">
+  <a class="nav-logo" href="/">Creativeskroll<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/blog" style="color:var(--gold)">Blog</a></li>
+    <li><a href="/#contact" class="nav-hire">Hire Me</a></li>
+  </ul>
+</nav>
+<header class="blog-header">
+  <div class="page-tag">Insights &amp; Ideas</div>
+  <h1 class="page-h1">Design thinking,<br/><em>brand strategy</em></h1>
+  <p class="page-sub">Practical guides and insights on graphic design, brand identity, social media, and what it takes to build a brand that lasts — by Sanchita Bhatia, Jaipur.</p>
+</header>
+<main class="blog-grid-wrap">
+  <div class="blog-grid"><a href="/blog/logo-design-cost-india-2025" class="post-card">
+      <div class="post-card-cat">Logo Design</div>
+      <h2 class="post-card-title">How much does logo design cost in India in 2025?</h2>
+      <p class="post-card-excerpt">A complete price breakdown for logo design in India — from ₹500 to ₹5,00,000+.</p>
+      <div class="post-card-meta">March 30, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/brand-identity-redesign-signs" class="post-card">
+      <div class="post-card-cat">Brand Identity</div>
+      <h2 class="post-card-title">5 signs your small business needs a brand identity redesign</h2>
+      <p class="post-card-excerpt">Is your brand holding you back? Here are the 5 clearest signs it is time for a refresh.</p>
+      <div class="post-card-meta">April 15, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/restaurant-brand-identity" class="post-card">
+      <div class="post-card-cat">Restaurants</div>
+      <h2 class="post-card-title">How to design a restaurant brand identity that attracts customers</h2>
+      <p class="post-card-excerpt">A complete guide to building a restaurant brand that fills tables and builds loyalty.</p>
+      <div class="post-card-meta">May 1, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/restaurant-menu-design" class="post-card">
+      <div class="post-card-cat">Restaurants</div>
+      <h2 class="post-card-title">Why your restaurant needs a professional menu design</h2>
+      <p class="post-card-excerpt">A professionally designed menu increases average order value and builds brand trust.</p>
+      <div class="post-card-meta">May 15, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/instagram-creatives-business-2025" class="post-card">
+      <div class="post-card-cat">Social Media</div>
+      <h2 class="post-card-title">How to create scroll-stopping Instagram creatives for your brand in 2025</h2>
+      <p class="post-card-excerpt">The design principles behind Instagram content that stops the scroll and converts followers.</p>
+      <div class="post-card-meta">June 1, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/social-media-design-packages-india" class="post-card">
+      <div class="post-card-cat">Social Media</div>
+      <h2 class="post-card-title">Social media design packages in India — what to expect and what to pay</h2>
+      <p class="post-card-excerpt">A complete tier-by-tier breakdown of social media design pricing in India in 2025.</p>
+      <div class="post-card-meta">June 15, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/motion-graphics-vs-static-design" class="post-card">
+      <div class="post-card-cat">Motion Graphics</div>
+      <h2 class="post-card-title">Motion graphics vs static design — which is better for your brand?</h2>
+      <p class="post-card-excerpt">An honest guide to when motion graphics add value — and when static design is the smarter choice.</p>
+      <div class="post-card-meta">July 1, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/youtube-thumbnail-design-tips" class="post-card">
+      <div class="post-card-cat">YouTube Thumbnails</div>
+      <h2 class="post-card-title">How to design a YouTube thumbnail that gets more clicks</h2>
+      <p class="post-card-excerpt">The exact design principles behind thumbnails that consistently drive higher click-through rates.</p>
+      <div class="post-card-meta">July 15, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/hire-graphic-designer-india" class="post-card">
+      <div class="post-card-cat">Global Clients</div>
+      <h2 class="post-card-title">Why hiring a graphic designer in India is the smartest move for global startups</h2>
+      <p class="post-card-excerpt">How global startups save 60–80% on design without compromising quality by working with Indian designers.</p>
+      <div class="post-card-meta">August 1, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/what-is-brand-identity-2025" class="post-card">
+      <div class="post-card-cat">Brand Identity</div>
+      <h2 class="post-card-title">What is brand identity and why every business needs one in 2025</h2>
+      <p class="post-card-excerpt">A clear, jargon-free explanation of what brand identity actually includes — and why it matters.</p>
+      <div class="post-card-meta">August 15, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/meta-ads-design-tips-2025" class="post-card">
+      <div class="post-card-cat">Meta Ads</div>
+      <h2 class="post-card-title">How to design Meta ads that actually convert</h2>
+      <p class="post-card-excerpt">The design principles behind Facebook and Instagram ads that stop the scroll and drive real results.</p>
+      <div class="post-card-meta">September 1, 2025 · Sanchita Bhatia</div>
+    </a><a href="/blog/graphic-design-trends-india-2025" class="post-card">
+      <div class="post-card-cat">Design Trends</div>
+      <h2 class="post-card-title">Graphic design trends in India 2025 — what is in, what is out</h2>
+      <p class="post-card-excerpt">The trends defining Indian brand design in 2025 — and the ones that have had their day.</p>
+      <div class="post-card-meta">September 15, 2025 · Sanchita Bhatia</div>
+    </a></div>
+</main>
+<footer>
+  <div class="footer-logo">Creativeskroll</div>
+  <span class="footer-copy">© 2025 Sanchita Bhatia · Graphic Designer, Jaipur, India</span>
+  <ul class="footer-links">
+    <li><a href="/about.html">About</a></li>
+    <li><a href="https://www.behance.net/sanchitabhatiadesign" target="_blank" rel="noopener">Behance</a></li>
+    <li><a href="https://instagram.com/creativeskroll" target="_blank" rel="noopener">Instagram</a></li>
+  </ul>
+</footer>
+<script>
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+</script>
+</body>
+</html>
