@@ -1,194 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ═══════════════════════════════
-       MAIN PAGES
-  ═══════════════════════════════ -->
-  <url>
-    <loc>https://www.creativeskroll.com/</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <!-- MAIN PAGES -->
+  <url><loc>https://www.creativeskroll.com/</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.creativeskroll.com/about.html</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.creativeskroll.com/hire-graphic-designer-jaipur</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.creativeskroll.com/wedding-invitation-designer-jaipur</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://www.creativeskroll.com/about.html</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- SERVICE PAGES -->
+  <url><loc>https://www.creativeskroll.com/services/logo-design-jaipur</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.creativeskroll.com/services/brand-identity-design-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.creativeskroll.com/services/social-media-design-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.creativeskroll.com/services/motion-graphics-designer-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://www.creativeskroll.com/hire-graphic-designer-jaipur</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- BLOG INDEX -->
+  <url><loc>https://www.creativeskroll.com/blog</loc><lastmod>2026-04-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://www.creativeskroll.com/wedding-invitation-designer-jaipur</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- BLOG POSTS — 2026 NEW -->
+  <url><loc>https://www.creativeskroll.com/blog/logo-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-design-cost-jaipur-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/restaurant-logo-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/brand-identity-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/how-to-choose-graphic-designer-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/social-media-design-packages-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/graphic-designer-vs-canva-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-design-process-explained</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/packaging-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/youtube-thumbnail-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/meta-ads-design-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/brand-identity-for-startups-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/motion-graphics-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/brand-identity-redesign-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-design-trends-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/print-design-cost-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/graphic-design-for-restaurants-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-designer-delhi-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-designer-mumbai-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/instagram-design-tips-india-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/brand-identity-tips-small-business-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/logo-design-bangalore-2026</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/colour-psychology-brand-identity-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/typography-brand-identity-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/freelance-graphic-designer-vs-agency-india</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- ═══════════════════════════════
-       SERVICE PAGES
-  ═══════════════════════════════ -->
-  <url>
-    <loc>https://www.creativeskroll.com/services/logo-design-jaipur</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/services/brand-identity-design-india</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/services/social-media-design-india</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/services/motion-graphics-designer-india</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ═══════════════════════════════
-       BLOG INDEX
-  ═══════════════════════════════ -->
-  <url>
-    <loc>https://www.creativeskroll.com/blog</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ═══════════════════════════════
-       BLOG POSTS — 2026
-  ═══════════════════════════════ -->
-  <url>
-    <loc>https://www.creativeskroll.com/blog/logo-design-cost-india-2026</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/logo-design-cost-jaipur-2026</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/restaurant-logo-design-cost-india-2026</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/brand-identity-design-cost-india-2026</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/how-to-choose-graphic-designer-india</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ═══════════════════════════════
-       BLOG POSTS — 2025
-  ═══════════════════════════════ -->
-  <url>
-    <loc>https://www.creativeskroll.com/blog/brand-identity-redesign-signs</loc>
-    <lastmod>2025-04-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/restaurant-brand-identity</loc>
-    <lastmod>2025-05-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/restaurant-menu-design</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/instagram-creatives-business-2025</loc>
-    <lastmod>2025-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/social-media-design-packages-india</loc>
-    <lastmod>2025-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/motion-graphics-vs-static-design</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/youtube-thumbnail-design-tips</loc>
-    <lastmod>2025-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/hire-graphic-designer-india</loc>
-    <lastmod>2025-08-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/what-is-brand-identity-2025</loc>
-    <lastmod>2025-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/meta-ads-design-tips-2025</loc>
-    <lastmod>2025-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.creativeskroll.com/blog/graphic-design-trends-india-2025</loc>
-    <lastmod>2025-09-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- BLOG POSTS — 2025 -->
+  <url><loc>https://www.creativeskroll.com/blog/brand-identity-redesign-signs</loc><lastmod>2025-04-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/restaurant-brand-identity</loc><lastmod>2025-05-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/restaurant-menu-design</loc><lastmod>2025-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/instagram-creatives-business-2025</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/social-media-design-packages-india</loc><lastmod>2025-06-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/motion-graphics-vs-static-design</loc><lastmod>2025-07-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/youtube-thumbnail-design-tips</loc><lastmod>2025-07-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/hire-graphic-designer-india</loc><lastmod>2025-08-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/what-is-brand-identity-2025</loc><lastmod>2025-08-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/meta-ads-design-tips-2025</loc><lastmod>2025-09-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.creativeskroll.com/blog/graphic-design-trends-india-2025</loc><lastmod>2025-09-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
 </urlset>
