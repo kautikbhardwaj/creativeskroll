@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /update-bot.html
+
+Sitemap: https://www.creativeskroll.com/sitemap.xml

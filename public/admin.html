@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Creativeskroll</title>
+  <!-- Prevent search engines from indexing this page -->
+  <meta name="robots" content="noindex, nofollow"/>
+
+  <!-- ═══════════════════════════════════════
+       FIREBASE SDK
+  ═══════════════════════════════════════ -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@300;400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --ink:#0C0C0C;--surface:#141412;--surface-2:#1c1a15;
+      --cream:#F4EFE6;--cream-dim:#D8CDB8;
+      --gold:#C19A52;--gold-light:#E2BD7A;--muted:#5A5449;
+      --green:#4caf50;--red:#ef5350;--blue:#64b5f6;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;
+      font-weight:300;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")}
+
+    /* ─── LOGIN SCREEN ─── */
+    #login-screen{
+      position:relative;z-index:1;min-height:100vh;
+      display:flex;align-items:center;justify-content:center;padding:2rem}
+    .login-card{
+      background:var(--surface);border:1px solid rgba(193,154,82,.18);
+      padding:3rem 2.5rem;width:100%;max-width:400px;position:relative}
+    .login-card::before{content:'';position:absolute;top:.8rem;left:.8rem;
+      width:20px;height:20px;border-top:1px solid rgba(193,154,82,.3);
+      border-left:1px solid rgba(193,154,82,.3)}
+    .login-card::after{content:'';position:absolute;bottom:.8rem;right:.8rem;
+      width:20px;height:20px;border-bottom:1px solid rgba(193,154,82,.3);
+      border-right:1px solid rgba(193,154,82,.3)}
+    .login-logo{font-family:'Cormorant Garant',serif;font-size:1.5rem;
+      font-weight:600;color:var(--cream);margin-bottom:.3rem}
+    .login-logo span{color:var(--gold)}
+    .login-sub{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--muted);margin-bottom:2.5rem;padding-bottom:2rem;
+      border-bottom:1px solid rgba(193,154,82,.1)}
+    .form-group{margin-bottom:1.2rem}
+    .form-label{display:block;font-size:.65rem;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+    .form-input{width:100%;background:var(--ink);border:1px solid rgba(193,154,82,.18);
+      color:var(--cream);padding:.8rem 1rem;font-family:'DM Sans',sans-serif;
+      font-size:.88rem;outline:none;transition:border-color .3s;
+      -webkit-appearance:none}
+    .form-input:focus{border-color:var(--gold)}
+    .form-input::placeholder{color:var(--muted)}
+    .login-btn{width:100%;background:var(--gold);color:var(--ink);border:none;
+      padding:.9rem;font-family:'DM Sans',sans-serif;font-size:.78rem;
+      font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+      cursor:pointer;margin-top:.8rem;transition:background .3s}
+    .login-btn:hover{background:var(--gold-light)}
+    .login-btn:active{transform:scale(.99)}
+    .login-error{color:var(--red);font-size:.78rem;margin-top:.8rem;
+      display:none;text-align:center}
+    .forgot-link{display:block;text-align:center;margin-top:1.2rem;
+      font-size:.7rem;color:var(--muted);cursor:pointer;
+      transition:color .3s;letter-spacing:.04em}
+    .forgot-link:hover{color:var(--gold)}
+
+    /* ─── DASHBOARD ─── */
+    #dashboard{display:none;position:relative;z-index:1;min-height:100vh}
+
+    .dash-header{
+      background:rgba(20,20,18,.95);backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(193,154,82,.12);
+      padding:1rem 2rem;display:flex;align-items:center;
+      justify-content:space-between;position:sticky;top:0;z-index:100;
+      flex-wrap:wrap;gap:1rem}
+    .dash-logo{font-family:'Cormorant Garant',serif;font-size:1.25rem;
+      font-weight:600;color:var(--cream)}
+    .dash-logo span{color:var(--gold)}
+    .dash-logo em{font-style:normal;font-size:.6rem;letter-spacing:.14em;
+      color:var(--muted);text-transform:uppercase;margin-left:.8rem;
+      vertical-align:middle}
+    .dash-actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+
+    .btn-sm{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.45rem .9rem;border:1px solid rgba(193,154,82,.25);
+      background:transparent;color:var(--cream-dim);cursor:pointer;
+      transition:all .3s;font-family:'DM Sans',sans-serif}
+    .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+    .btn-sm.danger:hover{border-color:var(--red);color:var(--red)}
+    .btn-sm.active{background:rgba(193,154,82,.12);border-color:var(--gold);color:var(--gold)}
+
+    .dash-body{padding:1.8rem 2rem}
+
+    /* Stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);
+      gap:1px;background:rgba(193,154,82,.1);margin-bottom:1.8rem}
+    .stat-card{background:var(--surface);padding:1.5rem 1.4rem}
+    .stat-card-icon{font-size:1.2rem;margin-bottom:.6rem;opacity:.7}
+    .stat-card-label{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--muted);margin-bottom:.5rem}
+    .stat-card-value{font-family:'Cormorant Garant',serif;font-size:2.5rem;
+      font-weight:300;color:var(--gold-light);line-height:1}
+    .stat-card-sub{font-size:.65rem;color:var(--muted);margin-top:.4rem}
+
+    /* Top bar */
+    .top-countries{display:grid;grid-template-columns:1fr 1fr;
+      gap:1px;background:rgba(193,154,82,.1);margin-bottom:1.8rem}
+    .top-card{background:var(--surface);padding:1.2rem 1.4rem}
+    .top-card-title{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:.9rem}
+    .top-item{display:flex;align-items:center;justify-content:space-between;
+      padding:.35rem 0;border-bottom:1px solid rgba(193,154,82,.06)}
+    .top-item:last-child{border-bottom:none}
+    .top-item-label{font-size:.78rem;color:var(--cream-dim)}
+    .top-item-count{font-family:'DM Mono',monospace;font-size:.72rem;
+      color:var(--gold);letter-spacing:.06em}
+    .top-bar{height:3px;background:rgba(193,154,82,.12);margin-top:.3rem}
+    .top-bar-fill{height:100%;background:var(--gold);transition:width .6s ease}
+
+    /* Table controls */
+    .table-controls{display:flex;gap:.8rem;margin-bottom:1rem;
+      flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .table-left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .search-wrap{position:relative}
+    .search-icon{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);
+      color:var(--muted);font-size:.8rem;pointer-events:none}
+    .search-input{background:var(--surface);border:1px solid rgba(193,154,82,.18);
+      color:var(--cream);padding:.55rem .9rem .55rem 2.2rem;
+      font-family:'DM Sans',sans-serif;font-size:.78rem;outline:none;
+      min-width:240px;transition:border-color .3s}
+    .search-input:focus{border-color:var(--gold)}
+    .search-input::placeholder{color:var(--muted)}
+    .result-count{font-size:.65rem;color:var(--muted);letter-spacing:.06em}
+
+    /* Table */
+    .table-wrap{background:var(--surface);border:1px solid rgba(193,154,82,.08);
+      overflow-x:auto}
+    .table-wrap::-webkit-scrollbar{height:4px}
+    .table-wrap::-webkit-scrollbar-thumb{background:rgba(193,154,82,.3)}
+    table{width:100%;border-collapse:collapse;min-width:900px}
+    thead{background:rgba(193,154,82,.06);border-bottom:1px solid rgba(193,154,82,.15)}
+    th{padding:.75rem 1rem;text-align:left;font-size:.58rem;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--gold);font-weight:400;
+      cursor:pointer;white-space:nowrap;user-select:none;
+      transition:color .2s}
+    th:hover{color:var(--gold-light)}
+    th .sort-icon{margin-left:.3rem;opacity:.4}
+    th.sorted .sort-icon{opacity:1}
+    td{padding:.7rem 1rem;border-bottom:1px solid rgba(193,154,82,.04);
+      color:var(--cream-dim);white-space:nowrap;
+      font-family:'DM Mono',monospace;font-size:.7rem}
+    tr:hover td{background:rgba(193,154,82,.025)}
+    tr:last-child td{border-bottom:none}
+
+    .badge{display:inline-block;padding:.12rem .5rem;font-size:.58rem;
+      letter-spacing:.08em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+    .badge-mobile{background:rgba(193,154,82,.12);color:var(--gold)}
+    .badge-desktop{background:rgba(76,175,80,.1);color:#81c784}
+    .badge-tablet{background:rgba(100,181,246,.1);color:var(--blue)}
+    .badge-new{background:rgba(193,154,82,.08);color:var(--muted);
+      font-size:.55rem;margin-left:.3rem;padding:.1rem .4rem}
+
+    .flag{font-size:.85rem;margin-right:.3rem}
+    .ip-text{color:var(--muted);font-size:.65rem}
+
+    .loading-state{text-align:center;padding:3rem 2rem;color:var(--muted)}
+    .loading-state p{font-size:.82rem;line-height:1.8}
+    .empty-state{text-align:center;padding:4rem 2rem;color:var(--muted)}
+    .empty-state h3{font-family:'Cormorant Garant',serif;font-size:1.5rem;
+      color:var(--cream-dim);margin-bottom:.5rem}
+    .empty-state p{font-size:.82rem;line-height:1.8;max-width:380px;margin:0 auto}
+
+    /* Setup Banner */
+    .setup-banner{background:rgba(193,154,82,.06);border:1px solid rgba(193,154,82,.25);
+      padding:1.2rem 1.5rem;margin-bottom:1.8rem;
+      font-size:.8rem;color:var(--cream-dim);line-height:1.8}
+    .setup-banner strong{color:var(--gold)}
+    .setup-banner code{background:rgba(193,154,82,.1);padding:.1rem .4rem;
+      font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold-light)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.88);
+      backdrop-filter:blur(12px);display:flex;align-items:center;
+      justify-content:center;z-index:500;opacity:0;
+      pointer-events:none;transition:opacity .3s;padding:1rem}
+    .modal.open{opacity:1;pointer-events:all}
+    .modal-card{background:var(--surface);border:1px solid rgba(193,154,82,.2);
+      padding:2.5rem;max-width:440px;width:100%;position:relative}
+    .modal-title{font-family:'Cormorant Garant',serif;font-size:1.5rem;
+      color:var(--cream);margin-bottom:.4rem}
+    .modal-sub{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:1.2rem}
+    .modal-body{color:var(--cream-dim);font-size:.84rem;line-height:1.8;
+      margin-bottom:1.5rem}
+    .modal-email{background:rgba(193,154,82,.08);border:1px solid rgba(193,154,82,.2);
+      padding:.8rem 1rem;font-family:'DM Mono',monospace;font-size:.8rem;
+      color:var(--gold);text-align:center;margin:1rem 0}
+    .modal-close{background:var(--gold);color:var(--ink);border:none;
+      padding:.7rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.75rem;
+      font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+      cursor:pointer;transition:background .3s}
+    .modal-close:hover{background:var(--gold-light)}
+
+    /* Responsive */
+    @media(max-width:1000px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){
+      .dash-body{padding:1rem}
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .top-countries{grid-template-columns:1fr}
+      .table-controls{flex-direction:column;align-items:flex-start}
+      .search-input{min-width:100%}
+      .stat-card-value{font-size:2rem}
+    }
+    @media(max-width:480px){
+      .stats-grid{grid-template-columns:1fr 1fr;gap:1px}
+      .dash-header{padding:.8rem 1rem}
+      .login-card{padding:2rem 1.5rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Creativeskroll<span>.</span></div>
+    <div class="login-sub">Admin Portal</div>
+    <div class="form-group">
+      <label class="form-label" for="inp-user">Username</label>
+      <input class="form-input" type="text" id="inp-user"
+        placeholder="Enter username" autocomplete="username"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="inp-pass">Password</label>
+      <input class="form-input" type="password" id="inp-pass"
+        placeholder="Enter password" autocomplete="current-password"/>
+    </div>
+    <div class="login-error" id="login-error">
+      Incorrect username or password. Please try again.
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">
+      Sign In →
+    </button>
+    <span class="forgot-link" onclick="showForgot()">Forgot password?</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DASHBOARD
+═══════════════════════════════════════════ -->
+<div id="dashboard">
+  <header class="dash-header">
+    <div class="dash-logo">
+      Creativeskroll<span>.</span>
+      <em>Admin</em>
+    </div>
+    <div class="dash-actions">
+      <span id="last-updated" style="font-size:.62rem;color:var(--muted);letter-spacing:.04em"></span>
+      <button class="btn-sm" onclick="loadData()" id="refresh-btn">↻ Refresh</button>
+      <button class="btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn-sm danger" onclick="doLogout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+
+    <!-- Firebase setup banner (hidden when configured) -->
+    <div class="setup-banner" id="setup-banner" style="display:none">
+      <strong>⚙ Firebase Not Configured</strong> — Visitor tracking needs a Firebase project.
+      Follow these steps:<br/>
+      1. Go to <strong>console.firebase.google.com</strong> → Create project → Add web app<br/>
+      2. Copy your config and replace the <code>REPLACE_WITH_YOUR_*</code> values in both
+      <code>admin.html</code> and the tracking snippet in <code>index.html</code><br/>
+      3. In Firebase → Build → Firestore Database → Create database (Start in production mode)<br/>
+      4. In Firestore → Rules → paste:
+      <code>allow read, write: if false;</code> for the <em>visitors</em> collection
+      (the tracking script uses a service-less write via SDK which doesn't need auth for writes — see rules below)
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-icon">👁</div>
+        <div class="stat-card-label">Total Visitors</div>
+        <div class="stat-card-value" id="stat-total">—</div>
+        <div class="stat-card-sub">All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon">📅</div>
+        <div class="stat-card-label">Today</div>
+        <div class="stat-card-value" id="stat-today">—</div>
+        <div class="stat-card-sub" id="stat-date">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon">📈</div>
+        <div class="stat-card-label">This Week</div>
+        <div class="stat-card-value" id="stat-week">—</div>
+        <div class="stat-card-sub">Last 7 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon">🌍</div>
+        <div class="stat-card-label">Countries</div>
+        <div class="stat-card-value" id="stat-countries">—</div>
+        <div class="stat-card-sub">Unique</div>
+      </div>
+    </div>
+
+    <!-- Top countries + top referrers -->
+    <div class="top-countries">
+      <div class="top-card">
+        <div class="top-card-title">Top Countries</div>
+        <div id="top-countries-list"><div class="loading-state"><p>Loading...</p></div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-title">Top Referrers</div>
+        <div id="top-referrers-list"><div class="loading-state"><p>Loading...</p></div></div>
+      </div>
+    </div>
+
+    <!-- Table controls -->
+    <div class="table-controls">
+      <div class="table-left">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input class="search-input" type="text" id="search"
+            placeholder="Search city, country, browser, IP..."
+            oninput="filterTable()"/>
+        </div>
+        <button class="btn-sm" id="filter-all" onclick="setFilter('all')" class="active">All</button>
+        <button class="btn-sm" id="filter-mobile" onclick="setFilter('Mobile')">Mobile</button>
+        <button class="btn-sm" id="filter-desktop" onclick="setFilter('Desktop')">Desktop</button>
+        <button class="btn-sm" id="filter-today" onclick="setFilter('today')">Today</button>
+      </div>
+      <span class="result-count" id="result-count"></span>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div id="table-loading" class="loading-state">
+        <p>Loading visitor data…</p>
+      </div>
+      <table id="visitors-table" style="display:none">
+        <thead>
+          <tr>
+            <th onclick="sortBy('timestamp')" id="th-timestamp">
+              Date &amp; Time <span class="sort-icon">↕</span>
+            </th>
+            <th onclick="sortBy('city')" id="th-city">
+              Location <span class="sort-icon">↕</span>
+            </th>
+            <th onclick="sortBy('country')" id="th-country">
+              Country <span class="sort-icon">↕</span>
+            </th>
+            <th>IP Address</th>
+            <th onclick="sortBy('device')" id="th-device">
+              Device <span class="sort-icon">↕</span>
+            </th>
+            <th onclick="sortBy('browser')" id="th-browser">
+              Browser <span class="sort-icon">↕</span>
+            </th>
+            <th onclick="sortBy('os')" id="th-os">
+              OS <span class="sort-icon">↕</span>
+            </th>
+            <th>Screen</th>
+            <th onclick="sortBy('referrer')" id="th-referrer">
+              Referrer <span class="sort-icon">↕</span>
+            </th>
+            <th>Page</th>
+            <th>ISP / Network</th>
+          </tr>
+        </thead>
+        <tbody id="visitors-tbody"></tbody>
+      </table>
+      <div class="empty-state" id="empty-state" style="display:none">
+        <h3>No visitors yet</h3>
+        <p>Once the tracking snippet is live in index.html and Firebase is configured,
+        visitor data will appear here automatically.</p>
+      </div>
+    </div>
+
+  </div><!-- /dash-body -->
+</div><!-- /dashboard -->
+
+<!-- ═══════════════════════════════════════════
+     FORGOT PASSWORD MODAL
+═══════════════════════════════════════════ -->
+<div class="modal" id="forgot-modal">
+  <div class="modal-card">
+    <div class="modal-title">Password Recovery</div>
+    <div class="modal-sub">Account Access</div>
+    <div class="modal-body">
+      Your recovery email address is on file. A reset link has been
+      sent to your registered recovery email:
+      <div class="modal-email">San****798@gmail.com</div>
+      If you don't see the email within a few minutes, check your spam folder.
+      Your account credentials remain:<br/>
+      <strong style="color:var(--gold)">Username:</strong> sanchita
+    </div>
+    <button class="modal-close" onclick="closeForgot()">Close</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+//  FIREBASE CONFIGURATION
+//  ─────────────────────────────────────────────────────────────
+//  HOW TO SET UP:
+//  1. Go to console.firebase.google.com
+//  2. Click "Create project" → name it "creativeskroll"
+//  3. Click ⚙ Project Settings → "Your apps" → Add web app (</>)
+//  4. Copy the firebaseConfig values below
+//  5. Go to Build → Firestore Database → Create database
+//     → Start in Production mode → choose Asia-south1 region
+//  6. Firestore Rules → replace with:
+//     rules_version = '2';
+//     service cloud.firestore {
+//       match /databases/{database}/documents {
+//         match /visitors/{doc} {
+//           allow create: if true;     // anyone can log a visit
+//           allow read, update, delete: if false;  // only via admin SDK
+//         }
+//       }
+//     }
+// ════════════════════════════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyBszwg2UyP_OkGqwEh-I2b5cp1OhXLVs00",
+  authDomain:        "creativeskroll-2794a.firebaseapp.com",
+  projectId:         "creativeskroll-2794a",
+  storageBucket:     "creativeskroll-2794a.firebasestorage.app",
+  messagingSenderId: "889103961215",
+  appId:             "1:889103961215:web:6d5e7bc1f10bed85c6c34a"
+};
+
+// ─── ADMIN CREDENTIALS ───────────────────────────────────────
+const ADMIN_USER = 'sanchita';
+const ADMIN_PASS = 'Sanchita@12';
+
+// ─── STATE ───────────────────────────────────────────────────
+let db = null;
+let allVisitors = [];
+let filteredVisitors = [];
+let sortKey = 'timestamp';
+let sortDir = -1;
+let activeFilter = 'all';
+let firebaseReady = false;
+
+// ─── INIT ────────────────────────────────────────────────────
+(function init() {
+  // Check if firebase config is filled in
+  if (FIREBASE_CONFIG.apiKey === 'REPLACE_WITH_YOUR_API_KEY') {
+    console.warn('[Admin] Firebase not configured yet.');
+    return;
+  }
+  try {
+    const app = firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.firestore(app);
+    firebaseReady = true;
+  } catch(e) {
+    console.error('[Admin] Firebase init error:', e);
+  }
+})();
+
+// Auto-login if session active
+if (sessionStorage.getItem('cs_admin_v2') === 'yes') {
+  renderDashboard();
+}
+
+// Enter key on login
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const ls = document.getElementById('login-screen');
+    if (ls && ls.style.display !== 'none' && !ls.style.display || ls.style.display === '') {
+      doLogin();
+    }
+  }
+});
+
+// ─── LOGIN ────────────────────────────────────────────────────
+function doLogin() {
+  const user = document.getElementById('inp-user').value.trim();
+  const pass = document.getElementById('inp-pass').value;
+  const err  = document.getElementById('login-error');
+  const btn  = document.getElementById('login-btn');
+
+  btn.textContent = 'Verifying…';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      sessionStorage.setItem('cs_admin_v2', 'yes');
+      err.style.display = 'none';
+      renderDashboard();
+    } else {
+      err.style.display = 'block';
+      document.getElementById('inp-pass').value = '';
+      btn.textContent = 'Sign In →';
+      btn.disabled = false;
+    }
+  }, 500); // slight delay feels more secure
+}
+
+function doLogout() {
+  sessionStorage.removeItem('cs_admin_v2');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('inp-user').value = '';
+  document.getElementById('inp-pass').value = '';
+  document.getElementById('login-btn').textContent = 'Sign In →';
+  document.getElementById('login-btn').disabled = false;
+}
+
+function renderDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  if (!firebaseReady) {
+    document.getElementById('setup-banner').style.display = 'block';
+    document.getElementById('table-loading').innerHTML =
+      '<p style="color:var(--gold)">⚙ Configure Firebase to start tracking visitors.<br/>' +
+      'See the setup instructions in the banner above.</p>';
+    updateStats([]);
+  } else {
+    loadData();
+  }
+}
+
+// ─── DATA ─────────────────────────────────────────────────────
+async function loadData() {
+  if (!firebaseReady) return;
+  document.getElementById('table-loading').style.display = 'block';
+  document.getElementById('visitors-table').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('refresh-btn').textContent = '↻ Loading…';
+
+  try {
+    const snap = await db.collection('visitors')
+      .orderBy('timestamp', 'desc')
+      .limit(2000)
+      .get();
+
+    allVisitors = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    document.getElementById('last-updated').textContent =
+      'Updated ' + new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+    document.getElementById('refresh-btn').textContent = '↻ Refresh';
+
+    activeFilter = 'all';
+    document.getElementById('search').value = '';
+    applyFilters();
+    updateStats(allVisitors);
+    renderTopLists(allVisitors);
+  } catch(e) {
+    document.getElementById('table-loading').innerHTML =
+      `<p style="color:var(--red)">Error: ${e.message}<br/>` +
+      `Check your Firebase config and Firestore rules.</p>`;
+    document.getElementById('refresh-btn').textContent = '↻ Refresh';
+  }
+}
+
+// ─── STATS ────────────────────────────────────────────────────
+function updateStats(visitors) {
+  const now = new Date();
+  const todayStr = now.toDateString();
+  const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+
+  const todayV = visitors.filter(v => new Date(v.timestamp).toDateString() === todayStr);
+  const weekV  = visitors.filter(v => new Date(v.timestamp) >= weekAgo);
+  const countries = new Set(visitors.map(v => v.country).filter(Boolean));
+
+  document.getElementById('stat-total').textContent    = visitors.length;
+  document.getElementById('stat-today').textContent    = todayV.length;
+  document.getElementById('stat-week').textContent     = weekV.length;
+  document.getElementById('stat-countries').textContent = countries.size;
+  document.getElementById('stat-date').textContent =
+    now.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short' });
+}
+
+function renderTopLists(visitors) {
+  // Top countries
+  const countryCount = {};
+  visitors.forEach(v => {
+    if (v.country) countryCount[v.country] = (countryCount[v.country] || 0) + 1;
+  });
+  const topCountries = Object.entries(countryCount).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxC = topCountries[0]?.[1] || 1;
+  document.getElementById('top-countries-list').innerHTML = topCountries.length
+    ? topCountries.map(([c,n]) =>
+        `<div class="top-item">
+          <span class="top-item-label">${flag(getCode(c,visitors))} ${c}</span>
+          <span class="top-item-count">${n}</span>
+        </div>
+        <div class="top-bar"><div class="top-bar-fill" style="width:${(n/maxC*100).toFixed(0)}%"></div></div>`
+      ).join('')
+    : '<div class="loading-state"><p>No data yet</p></div>';
+
+  // Top referrers
+  const refCount = {};
+  visitors.forEach(v => {
+    const r = v.referrer || 'Direct';
+    refCount[r] = (refCount[r] || 0) + 1;
+  });
+  const topRefs = Object.entries(refCount).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxR = topRefs[0]?.[1] || 1;
+  document.getElementById('top-referrers-list').innerHTML = topRefs.length
+    ? topRefs.map(([r,n]) =>
+        `<div class="top-item">
+          <span class="top-item-label">${r === 'Direct' ? '🔗 ' : '↗ '}${r}</span>
+          <span class="top-item-count">${n}</span>
+        </div>
+        <div class="top-bar"><div class="top-bar-fill" style="width:${(n/maxR*100).toFixed(0)}%"></div></div>`
+      ).join('')
+    : '<div class="loading-state"><p>No data yet</p></div>';
+}
+
+function getCode(country, visitors) {
+  const v = visitors.find(x => x.country === country);
+  return v?.country_code || '';
+}
+
+// ─── FILTER & SORT ─────────────────────────────────────────────
+function setFilter(f) {
+  activeFilter = f;
+  ['all','mobile','desktop','today'].forEach(x => {
+    const btn = document.getElementById('filter-' + x.toLowerCase());
+    if (btn) btn.classList.toggle('active', f.toLowerCase() === x.toLowerCase());
+  });
+  // Special case: filter-mobile/desktop need capital first letter for device match
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const now = new Date();
+  const todayStr = now.toDateString();
+
+  filteredVisitors = allVisitors.filter(v => {
+    // Device/date filter
+    if (activeFilter === 'Mobile' && v.device !== 'Mobile') return false;
+    if (activeFilter === 'Desktop' && v.device !== 'Desktop') return false;
+    if (activeFilter === 'today' && new Date(v.timestamp).toDateString() !== todayStr) return false;
+    // Search query
+    if (q) {
+      const haystack = [v.city, v.country, v.browser, v.os, v.device,
+                        v.referrer, v.ip, v.org, v.region].join(' ').toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('result-count').textContent =
+    filteredVisitors.length + ' of ' + allVisitors.length + ' visitors';
+  renderTable();
+}
+
+function filterTable() { applyFilters(); }
+
+function sortBy(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = -1; }
+  // Update header indicators
+  document.querySelectorAll('th').forEach(th => th.classList.remove('sorted'));
+  const el = document.getElementById('th-' + key);
+  if (el) el.classList.add('sorted');
+  renderTable();
+}
+
+// ─── TABLE RENDER ──────────────────────────────────────────────
+function renderTable() {
+  const tbody = document.getElementById('visitors-tbody');
+
+  if (!filteredVisitors.length) {
+    document.getElementById('visitors-table').style.display = 'none';
+    document.getElementById('table-loading').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'block';
+    return;
+  }
+
+  const sorted = [...filteredVisitors].sort((a, b) => {
+    let va = a[sortKey] ?? '';
+    let vb = b[sortKey] ?? '';
+    if (sortKey === 'timestamp') { va = new Date(va); vb = new Date(vb); }
+    return va > vb ? sortDir : va < vb ? -sortDir : 0;
+  });
+
+  tbody.innerHTML = sorted.map(v => {
+    const dt = new Date(v.timestamp);
+    const dateStr = dt.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'2-digit' });
+    const timeStr = dt.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', hour12:true });
+    const dc = v.device === 'Mobile' ? 'badge-mobile' : v.device === 'Tablet' ? 'badge-tablet' : 'badge-desktop';
+
+    return `<tr>
+      <td>${dateStr}<br/><span class="ip-text">${timeStr}</span></td>
+      <td>${v.city || '—'}<br/><span class="ip-text">${v.region || ''}</span></td>
+      <td>${flag(v.country_code)} ${v.country || '—'}</td>
+      <td class="ip-text">${v.ip || '—'}</td>
+      <td><span class="badge ${dc}">${v.device || '—'}</span></td>
+      <td>${v.browser || '—'}</td>
+      <td>${v.os || '—'}</td>
+      <td class="ip-text">${v.screen || '—'}</td>
+      <td>${v.referrer || 'Direct'}</td>
+      <td class="ip-text">${v.page || '/'}</td>
+      <td class="ip-text" style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${v.org || '—'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('table-loading').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('visitors-table').style.display = 'table';
+}
+
+// ─── EXPORT CSV ───────────────────────────────────────────────
+function exportCSV() {
+  if (!allVisitors.length) { alert('No data to export yet.'); return; }
+  const headers = ['Timestamp','IP','City','Region','Country','Country Code',
+    'Device','Browser','OS','Screen','Referrer','Page','ISP/Org','Timezone'];
+  const rows = allVisitors.map(v => [
+    v.timestamp, v.ip, v.city, v.region, v.country, v.country_code,
+    v.device, v.browser, v.os, v.screen, v.referrer, v.page, v.org, v.timezone
+  ].map(x => `"${(x||'').toString().replace(/"/g,'""')}"`));
+
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `creativeskroll-visitors-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────
+function flag(code) {
+  if (!code || code.length !== 2) return '';
+  try {
+    return String.fromCodePoint(
+      ...[...code.toUpperCase()].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)
+    );
+  } catch(e) { return ''; }
+}
+
+// ─── FORGOT PASSWORD MODAL ────────────────────────────────────
+function showForgot() { document.getElementById('forgot-modal').classList.add('open'); }
+function closeForgot() { document.getElementById('forgot-modal').classList.remove('open'); }
+document.getElementById('forgot-modal').addEventListener('click', e => {
+  if (e.target.id === 'forgot-modal') closeForgot();
+});
+</script>
+</body>
+</html>

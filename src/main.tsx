@@ -1,0 +1,14 @@
+import "@fontsource/inter";
+import "@fontsource/playfair-display";
+import "./styles.css";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "@tanstack/react-router";
+import { router } from "./router";
+
+const rootEl = document.getElementById("root")!;
+createRoot(rootEl).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+);
